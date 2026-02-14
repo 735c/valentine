@@ -1,4 +1,3 @@
-// Elements
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const question = document.getElementById("question");
@@ -13,7 +12,6 @@ const yaySound = document.getElementById("yaySound");
 let noCount = 0;
 let sweetInterval;
 
-// ---------- NO BUTTON ----------
 const noMessages = [
     "Are you sure? 🥺",
     "Really sure??",
@@ -35,7 +33,6 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-// ---------- AUDIO HELPERS ----------
 function fadeInAudio(audio, duration = 2000) {
     audio.volume = 0;
     audio.play().catch(() => {});
@@ -73,14 +70,12 @@ yesBtn.addEventListener("click", () => {
     startExperience();
 });
 
-// ---------- START EXPERIENCE ----------
 function startExperience() {
     fadeInAudio(casMusic, 2000);     // play CAS
     fadeInAudio(yaySound, 500);     // small celebration sound
     startSweetSlides();             // start messages
 }
 
-// ---------- SWEET SLIDES ----------
 const sweetSlides = [
     "YAYYYYYY 🎉💖",
     "HAPPY VALENTINE'S DAY JASMINE!! 💘",
@@ -119,7 +114,6 @@ function startSweetSlides() {
         if (index >= sweetSlides.length) {
             clearInterval(sweetInterval);
 
-            // show button only on final slide
             readyBtn.classList.remove("hidden");
             return;
         }
@@ -129,7 +123,6 @@ function startSweetSlides() {
     }, 2500);
 }
 
-// ---------- READY BUTTON ----------
 readyBtn.addEventListener("click", () => {
     readyBtn.classList.add("hidden");
 
@@ -140,4 +133,5 @@ readyBtn.addEventListener("click", () => {
         fadeInAudio(btsMusic, 2000);
         slideText.textContent = "BTS Song Time! 🎶💜 Enjoy beautiful!";
     }, 2000);
+
 });
