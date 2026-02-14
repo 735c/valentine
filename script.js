@@ -12,6 +12,7 @@ const yaySound = document.getElementById("yaySound");
 let noCount = 0;
 let sweetInterval;
 
+
 const noMessages = [
     "Are you sure? 🥺",
     "Really sure??",
@@ -33,36 +34,46 @@ noBtn.addEventListener("click", () => {
     }
 });
 
+
 function fadeInAudio(audio, duration = 2000) {
     audio.volume = 0;
     audio.play().catch(() => {});
-    let step = 50;
-    let increment = 1 / (duration / step);
+    let start = null;
 
-    let fade = setInterval(() => {
-        if (audio.volume < 1) {
-            audio.volume = Math.min(1, audio.volume + increment);
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        let progress = timestamp - start;
+        audio.volume = Math.min(progress / duration, 1);
+        if (progress < duration) {
+            requestAnimationFrame(step);
         } else {
-            clearInterval(fade);
+            audio.volume = 1;
         }
-    }, step);
+    }
+
+    requestAnimationFrame(step);
 }
 
 function fadeOutAudio(audio, duration = 2000) {
-    let step = 50;
-    let decrement = 1 / (duration / step);
+    let start = null;
+    const initialVolume = audio.volume;
 
-    let fade = setInterval(() => {
-        if (audio.volume > 0) {
-            audio.volume = Math.max(0, audio.volume - decrement);
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        let progress = timestamp - start;
+        audio.volume = Math.max(initialVolume * (1 - progress / duration), 0);
+        if (progress < duration) {
+            requestAnimationFrame(step);
         } else {
+            audio.volume = 0;
             audio.pause();
-            clearInterval(fade);
         }
-    }, step);
+    }
+
+    requestAnimationFrame(step);
 }
 
-// ---------- YES BUTTON ----------
+
 yesBtn.addEventListener("click", () => {
     document.getElementById("mainContainer").classList.add("hidden");
     celebration.classList.remove("hidden");
@@ -70,11 +81,15 @@ yesBtn.addEventListener("click", () => {
     startExperience();
 });
 
+
 function startExperience() {
-    fadeInAudio(casMusic, 2000);     // play CAS
-    fadeInAudio(yaySound, 500);     // small celebration sound
-    startSweetSlides();             // start messages
+    casMusic.currentTime = 0;
+    fadeInAudio(casMusic, 2000); // CAS music fade in
+    yaySound.currentTime = 0;
+    fadeInAudio(yaySound, 500);  // small celebration sound
+    startSweetSlides();           // start message slides
 }
+
 
 const sweetSlides = [
     "YAYYYYYY 🎉💖",
@@ -108,30 +123,27 @@ function startSweetSlides() {
     slideText.textContent = sweetSlides[index];
 
     sweetInterval = setInterval(() => {
-
         index++;
-
         if (index >= sweetSlides.length) {
             clearInterval(sweetInterval);
-
             readyBtn.classList.remove("hidden");
             return;
         }
-
         slideText.textContent = sweetSlides[index];
-
     }, 2500);
 }
 
+
 readyBtn.addEventListener("click", () => {
     readyBtn.classList.add("hidden");
+
 
     fadeOutAudio(casMusic, 2000);
     fadeOutAudio(yaySound, 1000);
 
     setTimeout(() => {
-        fadeInAudio(btsMusic, 2000);
+        btsMusic.currentTime = 0; // reset BTS music
+        fadeInAudio(btsMusic, 2000); // fade in BTS music
         slideText.textContent = "BTS Song Time! 🎶💜 Enjoy beautiful!";
     }, 2000);
-
 });
