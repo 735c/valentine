@@ -138,8 +138,10 @@ readyBtn.addEventListener("click", () => {
     readyBtn.classList.add("hidden");
 
 
-    fadeOutAudio(casMusic, 2000);
-    fadeOutAudio(yaySound, 1000);
+    casMusic.pause();
+    casMusic.volume = 0;
+    yaySound.pause();
+    yaySound.volume = 0;
 
     setTimeout(() => {
         btsMusic.currentTime = 0; // reset BTS music
@@ -147,3 +149,4 @@ readyBtn.addEventListener("click", () => {
         slideText.textContent = "BTS Song Time! 🎶💜 Enjoy beautiful!";
     }, 2000);
 });
+
