@@ -34,7 +34,7 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-// ---------- AUDIO HELPERS ----------
+
 function fadeInAudio(audio, duration = 2000) {
     audio.volume = 0;
     audio.play().catch(() => {});
@@ -75,8 +75,8 @@ yesBtn.addEventListener("click", () => {
 
 function startExperience() {
     fadeInAudio(casMusic, 2000);     // play CAS
-    fadeInAudio(yaySound, 500);     // small celebration sound
-    startSweetSlides();             // start messages
+    fadeInAudio(yaySound, 500);      // small celebration sound
+    startSweetSlides();               // start messages
 }
 
 
@@ -112,13 +112,12 @@ function startSweetSlides() {
     slideText.textContent = sweetSlides[index];
 
     sweetInterval = setInterval(() => {
-
         index++;
 
         if (index >= sweetSlides.length) {
             clearInterval(sweetInterval);
 
-            
+
             readyBtn.classList.remove("hidden");
             return;
         }
@@ -128,10 +127,22 @@ function startSweetSlides() {
     }, 2500);
 }
 
+
 readyBtn.addEventListener("click", () => {
     readyBtn.classList.add("hidden");
 
-    fadeOutAudio(casMusic, 2000);
+
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isMobile) {
+
+        casMusic.pause();
+        casMusic.currentTime = 0;
+    } else {
+
+        fadeOutAudio(casMusic, 2000);
+    }
+
     fadeOutAudio(yaySound, 1000);
 
     setTimeout(() => {
