@@ -93,28 +93,7 @@ function startExperience() {
 
 const sweetSlides = [
     "YAYYYYYY 🎉💖",
-    "HAPPY VALENTINE'S DAY JASMINE!! 💘",
-    "You are the most adorable person ever.",
-    "Your jokes are literally the funniest.",
-    "You make every day better.",
-    "You're so gorgeous",
-    "You deserve the whole world.",
-    "I’m so lucky to have you in my life.",
-    "I love you more than words can say.",
-    "Thank you for being you.",
-    "Your soft voice is my favorite sound in the world.",
-    "I love how sweet you are without even trying.",
-    "Your clingy side? YUP JASMINE that’s my favorite part 🥺",
-    "You’re such a nerd and I absolutely love that about you.",
-    "Independent, strong, and still the softest person ever.",
-    "You understand me in ways nobody else really does.",
-    "You'd probably beat me in pokemon cards and still look cute doing it.",
-    "The way you talk about books, manga, and anime is so adorable.",
-    "I admire how strong you were growing up.",
-    "I’m proud of you for everything you’ve overcome.",
-    "You deserve a love that feels safe and warm.",
-    "And I promise to always protect your smile <3.",
-    "Jasmine, you’re my favorite person in the whole world 💖",
+
     "Best Valentine ever I LOVE YOOUU!! 🥰"
 ];
 
@@ -149,4 +128,5 @@ readyBtn.addEventListener("click", () => {
         slideText.textContent = "BTS Song Time! 🎶💜 Enjoy beautiful!";
     }, 2000);
 });
+
 
